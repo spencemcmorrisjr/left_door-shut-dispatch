@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Module</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>🚛 Driver Dashboard</h2>
+
+<!-- DRIVER INFO -->
+<div class="card">
+  <h3>Current Load</h3>
+  <p><strong>Start:</strong> Dallas, TX</p>
+  <p><strong>Drop:</strong> Atlanta, GA</p>
+  <button onclick="acceptLoad()">Accept Load</button>
+</div>
+
+<!-- ROUTE SECTION -->
+<div class="card">
+  <h3>Fuel-Optimized Route</h3>
+  <p id="routeStatus">Load not accepted yet.</p>
+</div>
+
+<!-- EXPENSE GRAPH -->
+<div class="card">
+  <h3>Driver Expenses</h3>
+
+  <div class="bar fuel">Fuel: $1,200</div>
+  <div class="bar tolls">Tolls: $180</div>
+  <div class="bar food">Food: $250</div>
+</div>
+
+<script>
+function acceptLoad() {
+  document.getElementById("routeStatus").innerText =
+    "Best Route Loaded: I-20 E → I-85 N | Fuel Stops: Loves, Pilot";
+  alert("Load accepted. Route sent to driver.");
+}
+</script>
+
+</body>
+</html>
