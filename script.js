@@ -8,3 +8,15 @@ document.getElementById("loginBtn").onclick = function () {
     alert("Invalid login (test mode)");
   }
 };
+function saveTruckProfile() {
+  const profile = {
+    height: document.getElementById("truckHeight").value,
+    weight: document.getElementById("truckWeight").value,
+    axles: document.getElementById("truckAxles").value
+  };
+
+  localStorage.setItem("truckProfile", JSON.stringify(profile));
+
+  document.getElementById("truckProfileStatus").innerText =
+    "Truck profile saved successfully.";
+}
