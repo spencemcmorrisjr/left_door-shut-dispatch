@@ -170,3 +170,46 @@ function exportCPA() {
   document.getElementById("exportStatus").innerText =
     "CSV exported successfully!";
 }
+
+function emailToMe() {
+  // Get driver data
+  const truckProfile = JSON.parse(localStorage.getItem("truckProfile")) || {};
+  const expenses = JSON.parse(localStorage.getItem("driverExpenses")) || [];
+  const bolFile = localStorage.getItem("driverBOL") || "";
+  const factoringCompany = localStorage.getItem("factoringCompany") || "";
+  const routeStatus = document.getElementById("routeStatus")?.innerText || "";
+
+  // Build email content
+  let emailBody = "Driver Tax Paperwork & BOL\n\n";
+
+  emailBody += "=== Truck Profile ===\n";
+  emailBody += `Height: ${truckProfile.height || ""} ft\n`;
+  emailBody += `Weight: ${truckProfile.weight || ""} lbs\n`;
+  emailBody += `Axles: ${truckProfile.axles || ""}\n\n`;
+
+  emailBody += "=== Expenses ===\n";
+  expenses.forEach(e => {
+    emailBody += `${e.type}: $${e.amount} on ${e.date}\n`;
+  });
+
+  emailBody += "\n=== BOL ===\n";
+  emailBody += bolFile ? `File: ${bolFile}\n` : "No BOL uploaded\n";
+
+  emailBody += "\n=== Factoring Company ===\n";
+  emailBody += factoringCompany || "None selected\n";
+
+  emailBody += "\n=== Route Info ===\n";
+  emailBody += routeStatus || "No route accepted\n";
+
+  // Create mailto link
+  const subject = encodeURIComponent("Driver Tax Paperwork & BOL");
+  const body = encodeURIComponent(emailBody);
+
+  const mailtoLink = `mailto:LeftDoorShutDispatch@gmail.com?subject=${subject}&body=${body}`;
+
+  // Open default email client
+  window.location.href = mailtoLink;
+
+  document.getElementById("emailStatus").innerText =
+    "Email draft created. Hit send in your email client.";
+}
