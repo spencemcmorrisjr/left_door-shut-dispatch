@@ -14,6 +14,20 @@
   <h3>Current Load</h3>
   <p><strong>Start:</strong> Dallas, TX</p>
   <p><strong>Drop:</strong> Atlanta, GA</p>
+  <h3>Truck Profile</h3>
+
+<label>Truck Height (ft):</label>
+<input type="number" id="truckHeight" placeholder="13.6">
+
+<label>Truck Weight (lbs):</label>
+<input type="number" id="truckWeight" placeholder="80000">
+
+<label>Axles:</label>
+<input type="number" id="truckAxles" placeholder="5">
+
+<button onclick="saveTruckProfile()">Save Truck Profile</button>
+
+<p id="truckProfileStatus"></p>
   <button onclick="acceptLoad()">Accept Load</button>
 </div>
 
