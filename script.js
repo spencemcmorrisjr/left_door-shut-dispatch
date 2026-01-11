@@ -56,3 +56,18 @@ function loadFuelStops() {
   });
 }
 loadFuelStops();
+function saveBOL() {
+  const fileInput = document.getElementById("bolUpload");
+
+  if (!fileInput.files.length) {
+    alert("Please select a BOL file.");
+    return;
+  }
+
+  const fileName = fileInput.files[0].name;
+
+  localStorage.setItem("driverBOL", fileName);
+
+  document.getElementById("bolStatus").innerText =
+    "BOL uploaded successfully: " + fileName;
+}
