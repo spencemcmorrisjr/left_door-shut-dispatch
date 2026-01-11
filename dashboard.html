@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+  <h1>Admin Dashboard</h1>
+
+  <ul>
+    <li>Clients: 1</li>
+    <li>Client 1: Test Driver 1 (testdriver1@example.com)</li>
+    <li>Dispatch Fee: 10%</li>
+    <li>Tax Add-On: $500</li>
+    <li>Status: Internal Test Mode</li>
+  </ul>
+
+  <h3>Contracts</h3>
+  <ul>
+    <li>
+      <a href="Contract_A.docx" target="_blank">Contract A</a>
+    </li>
+    <li>
+      <a href="Contract_B.docx" target="_blank">Contract B</a>
+    </li>
+    <li>
+      <a href="Contract_C.docx" target="_blank">Contract C</a>
+    </li>
+  </ul>
+
+  <h3>Upload Control</h3>
+
+  <p>
+    Upload Access:
+    <strong id="uploadStatus">LOCKED</strong>
+  </p>
+
+  <button id="toggleBtn">Toggle Upload Lock</button>
+
+  <script>
+    let uploadsLocked = true;
+
+    document.getElementById("toggleBtn").addEventListener("click", function () {
+      uploadsLocked = !uploadsLocked;
+
+      document.getElementById("uploadStatus").textContent =
+        uploadsLocked ? "LOCKED" : "UNLOCKED";
+
+      alert(
+        uploadsLocked
+          ? "Uploads have been LOCKED."
+          : "Uploads have been UNLOCKED."
+      );
+    });
+  </script>
+
+</body>
+</html>
