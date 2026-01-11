@@ -42,7 +42,13 @@
 <!-- EXPENSE GRAPH -->
 <div class="card">
   <h3>Driver Expenses</h3>
+<h3>Proof of Delivery (BOL)</h3>
 
+<input type="file" id="bolUpload" accept=".pdf,.jpg,.png">
+
+<button onclick="saveBOL()">Upload BOL</button>
+
+<p id="bolStatus"></p>
   <div class="bar fuel">Fuel: $1,200</div>
   <div class="bar tolls">Tolls: $180</div>
   <div class="bar food">Food: $250</div>
