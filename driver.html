@@ -53,6 +53,22 @@
   <div class="bar tolls">Tolls: $180</div>
   <div class="bar food">Food: $250</div>
 </div>
+<h3>Factoring Company</h3>
+
+<label>Select Factoring Company:</label>
+<select id="factoringCompany">
+  <option value="">-- Select --</option>
+  <option value="TAFS">TAFS</option>
+  <option value="Triumph">Triumph Business Capital</option>
+  <option value="RTS">RTS Financial</option>
+  <option value="Apex">Apex Capital</option>
+</select>
+
+<button onclick="saveFactoring()">Save Factoring Company</button>
+
+<p id="factoringStatus"></p>
+
+<div id="factoringDetails"></div>
 
 <script>
 function acceptLoad() {
