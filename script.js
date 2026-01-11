@@ -111,3 +111,62 @@ function saveFactoring() {
   document.getElementById("factoringStatus").innerText =
     "Factoring company saved.";
 }
+function exportCPA() {
+  // Get Truck Profile
+  const truckProfile = JSON.parse(localStorage.getItem("truckProfile")) || {};
+  
+  // Get Expenses
+  const expenses = JSON.parse(localStorage.getItem("driverExpenses")) || [];
+  
+  // Get BOL
+  const bolFile = localStorage.getItem("driverBOL") || "";
+  
+  // Get Factoring
+  const factoringCompany = localStorage.getItem("factoringCompany") || "";
+  
+  // Get Load Info
+  const routeStatus = document.getElementById("routeStatus").innerText || "";
+
+  // Build CSV content
+  let csv = "Category,Detail,Amount,Date\n";
+
+  // Truck Profile
+  csv += `Truck Profile,Height,${truckProfile.height || ""},\n`;
+  csv += `Truck Profile,Weight,${truckProfile.weight || ""},\n`;
+  csv += `Truck Profile,Axles,${truckProfile.axles || ""},\n`;
+
+  // Expenses
+  expenses.forEach(e => {
+    csv += `Expense,${e.type},${e.amount},${e.date}\n`;
+  });
+
+  // BOL
+  if (bolFile) {
+    csv += `BOL,File,${bolFile},\n`;
+  }
+
+  // Factoring
+  if (factoringCompany) {
+    csv += `Factoring,Company,${factoringCompany},\n`;
+  }
+
+  // Route
+  if (routeStatus) {
+    csv += `Load Info,Route,${routeStatus},\n`;
+  }
+
+  // Create CSV Blob
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+
+  // Trigger download
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "driver_data.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  document.getElementById("exportStatus").innerText =
+    "CSV exported successfully!";
+}
