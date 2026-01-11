@@ -71,3 +71,43 @@ function saveBOL() {
   document.getElementById("bolStatus").innerText =
     "BOL uploaded successfully: " + fileName;
 }
+const factoringInfo = {
+  TAFS: {
+    phone: "800-761-2387",
+    website: "https://tafs.com"
+  },
+  Triumph: {
+    phone: "866-668-4222",
+    website: "https://triumphbusinesscapital.com"
+  },
+  RTS: {
+    phone: "866-697-7238",
+    website: "https://rtsinc.com"
+  },
+  Apex: {
+    phone: "800-511-6022",
+    website: "https://apexcapitalcorp.com"
+  }
+};
+
+function saveFactoring() {
+  const company = document.getElementById("factoringCompany").value;
+
+  if (!company) {
+    alert("Please select a factoring company.");
+    return;
+  }
+
+  localStorage.setItem("factoringCompany", company);
+
+  const info = factoringInfo[company];
+
+  document.getElementById("factoringDetails").innerHTML = `
+    <strong>Phone:</strong> ${info.phone}<br>
+    <strong>Website:</strong>
+    <a href="${info.website}" target="_blank">${info.website}</a>
+  `;
+
+  document.getElementById("factoringStatus").innerText =
+    "Factoring company saved.";
+}
