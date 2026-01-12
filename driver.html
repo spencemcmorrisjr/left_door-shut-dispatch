@@ -136,6 +136,35 @@ function acceptLoad() {
   alert("Load accepted. Route sent to driver.");
 }
 </script>
+<script>
+function saveDriverProfile() {
+  const profile = {
+    name: document.getElementById("driverName").value,
+    truck: document.getElementById("truckNumber").value,
+    trailer: document.getElementById("trailerType").value,
+    factoring: document.getElementById("factoringCompany").value,
+    lumper: document.getElementById("lumperFee").value
+  };
+
+  localStorage.setItem("driverProfile", JSON.stringify(profile));
+
+  document.getElementById("saveStatus").innerText = "Profile saved successfully.";
+}
+
+// Load saved profile on page load
+window.onload = function () {
+  const savedProfile = localStorage.getItem("driverProfile");
+
+  if (savedProfile) {
+    const profile = JSON.parse(savedProfile);
+    document.getElementById("driverName").value = profile.name || "";
+    document.getElementById("truckNumber").value = profile.truck || "";
+    document.getElementById("trailerType").value = profile.trailer || "";
+    document.getElementById("factoringCompany").value = profile.factoring || "";
+    document.getElementById("lumperFee").value = profile.lumper || "";
+  }
+};
+</script>
 
 </body>
 </html>
