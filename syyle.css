@@ -37,3 +37,15 @@ button {
 .fuel { width: 80%; background: #ff9800; }
 .tolls { width: 40%; background: #9c27b0; }
 .food { width: 50%; background: #4caf50; }
+.driver-header {
+  background-color: #000;
+  padding: 12px 20px;
+  text-align: center;
+  border-bottom: 3px solid #f5b400;
+}
+
+.driver-header .logo {
+  max-width: 260px;
+  width: 100%;
+  height: auto;
+}
