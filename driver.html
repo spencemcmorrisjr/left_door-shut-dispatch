@@ -1,36 +1,28 @@
-<div class="app-header">
-  <div class="logo-area">
-    <img src="assets/logo.png" alt="Left Door Shut Dispatch Logo">
-    <div class="user-role">Driver Portal</div>
-  </div>
-
-  <button class="logout-btn" onclick="logout()">Logout</button>
-</div>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Driver Module</title>
+  <meta charset="UTF-8">
+  <title>Driver Portal | Left Door Shut Dispatch</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<script>
-function logout() {
-  alert("You have been logged out.");
-  window.location.href = "driver.html";
-}
-</script>
 <body>
-<header class="driver-header">
+
+<!-- ===== HEADER ===== -->
+<header class="main-header">
   <img src="logo.png" alt="Left Door Shut Dispatch Logo" class="logo">
+  <div class="portal-title">Driver Portal</div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
-  <section class="driver-profile">
+
+<!-- ===== DRIVER PROFILE ===== -->
+<section class="driver-profile">
   <h2>Driver Profile</h2>
 
   <label>Driver Name</label>
-  <input type="text" id="driverName" placeholder="Enter your name">
+  <input type="text" id="driverName">
 
   <label>Truck Number</label>
-  <input type="text" id="truckNumber" placeholder="e.g. 457">
+  <input type="text" id="truckNumber">
 
   <label>Trailer Type</label>
   <select id="trailerType">
@@ -55,88 +47,47 @@ function logout() {
   <input type="number" id="lumperFee" placeholder="$0.00">
 
   <button onclick="saveDriverProfile()">Save Profile</button>
-
   <p id="saveStatus"></p>
 </section>
 
-<h2>🚛 Driver Dashboard</h2>
+<!-- ===== CONTRACTS ===== -->
+<section class="contracts">
+  <h2>Contracts</h2>
+  <ul>
+    <li><a href="contracts/contract-a.html" target="_blank">Driver Contract</a></li>
+    <li><a href="contracts/contract-b.html" target="_blank">Power of Attorney (Optional)</a></li>
+    <li><a href="contracts/contract-c.html" target="_blank">Dispatch Agreement</a></li>
+  </ul>
+</section>
 
-<!-- DRIVER INFO -->
-<div class="card">
-  <h3>Current Load</h3>
-  <p><strong>Start:</strong> Dallas, TX</p>
-  <p><strong>Drop:</strong> Atlanta, GA</p>
-  <h3>Truck Profile</h3>
+<!-- ===== UPLOAD ACCESS ===== -->
+<section class="uploads">
+  <h2>Upload Access</h2>
+  <p>Status: <strong id="uploadStatus">LOCKED</strong></p>
+  <button onclick="toggleUploads()">Toggle Upload Lock</button>
+</section>
 
-<label>Truck Height (ft):</label>
-<input type="number" id="truckHeight" placeholder="13.6">
-
-<label>Truck Weight (lbs):</label>
-<input type="number" id="truckWeight" placeholder="80000">
-
-<label>Axles:</label>
-<input type="number" id="truckAxles" placeholder="5">
-
-<button onclick="saveTruckProfile()">Save Truck Profile</button>
-
-<p id="truckProfileStatus"></p>
-  <button onclick="acceptLoad()">Accept Load</button>
-</div>
-<h3>Recommended Fuel Stops</h3>
-
-<ul id="fuelStopsList"></ul>
-<!-- ROUTE SECTION -->
-<div class="card">
-  <h3>Fuel-Optimized Route</h3>
-  <p id="routeStatus">Load not accepted yet.</p>
-</div>
-
-<!-- EXPENSE GRAPH -->
-<div class="card">
-  <h3>Driver Expenses</h3>
-<h3>Proof of Delivery (BOL)</h3>
-
-<input type="file" id="bolUpload" accept=".pdf,.jpg,.png">
-
-<button onclick="saveBOL()">Upload BOL</button>
-
-<p id="bolStatus"></p>
-  <div class="bar fuel">Fuel: $1,200</div>
-  <div class="bar tolls">Tolls: $180</div>
-  <div class="bar food">Food: $250</div>
-</div>
-<h3>Factoring Company</h3>
-
-<label>Select Factoring Company:</label>
-<select id="factoringCompany">
-  <option value="">-- Select --</option>
-  <option value="TAFS">TAFS</option>
-  <option value="Triumph">Triumph Business Capital</option>
-  <option value="RTS">RTS Financial</option>
-  <option value="Apex">Apex Capital</option>
-</select>
-
-<button onclick="saveFactoring()">Save Factoring Company</button>
-
-<p id="factoringStatus"></p>
-
-<div id="factoringDetails"></div>
-<h3>CPA Export</h3>
-<button onclick="exportCPA()">Export Driver Data</button>
-<p id="exportStatus"></p>
-<h3>Send Tax Paperwork & BOL to Me</h3>
-
-<button onclick="emailToMe()">Email to LeftDoorShutDispatch@gmail.com</button>
-<p id="emailStatus"></p>
-  
+<!-- ===== JAVASCRIPT ===== -->
 <script>
-function acceptLoad() {
-  document.getElementById("routeStatus").innerText =
-    "Best Route Loaded: I-20 E → I-85 N | Fuel Stops: Loves, Pilot";
-  alert("Load accepted. Route sent to driver.");
+/* ===== LOGOUT ===== */
+function logout() {
+  alert("Logged out");
+  window.location.href = "index.html";
 }
-</script>
-<script>
+
+/* ===== UPLOAD LOCK ===== */
+function toggleUploads() {
+  const status = document.getElementById("uploadStatus");
+  if (status.innerText === "LOCKED") {
+    status.innerText = "UNLOCKED";
+    alert("Uploads unlocked.");
+  } else {
+    status.innerText = "LOCKED";
+    alert("Uploads locked.");
+  }
+}
+
+/* ===== SAVE DRIVER PROFILE ===== */
 function saveDriverProfile() {
   const profile = {
     name: document.getElementById("driverName").value,
@@ -147,14 +98,12 @@ function saveDriverProfile() {
   };
 
   localStorage.setItem("driverProfile", JSON.stringify(profile));
-
   document.getElementById("saveStatus").innerText = "Profile saved successfully.";
 }
 
-// Load saved profile on page load
-window.onload = function () {
+/* ===== LOAD DRIVER PROFILE SAFELY ===== */
+document.addEventListener("DOMContentLoaded", function () {
   const savedProfile = localStorage.getItem("driverProfile");
-
   if (savedProfile) {
     const profile = JSON.parse(savedProfile);
     document.getElementById("driverName").value = profile.name || "";
@@ -163,7 +112,7 @@ window.onload = function () {
     document.getElementById("factoringCompany").value = profile.factoring || "";
     document.getElementById("lumperFee").value = profile.lumper || "";
   }
-};
+});
 </script>
 
 </body>
