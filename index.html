@@ -1,32 +1,119 @@
-<div class="app-header">
-  <div class="logo-area">
-    <img src="assets/logo.png" alt="Left Door Shut Dispatch Logo">
-    <div class="user-role">Admin Portal</div>
-  </div>
-
-  <button class="logout-btn" onclick="logout()">Logout</button>
-</div>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Left Door Shut Dispatch</title>
+  <meta charset="UTF-8">
+  <title>Admin Portal | Left Door Shut Dispatch</title>
   <link rel="stylesheet" href="style.css">
 </head>
-  <script>
-function logout() {
-  alert("You have been logged out.");
-  window.location.href = "index.html";
-}
-</script>
 <body>
 
-  <h1>Left Door Shut Dispatch</h1>
-  <p>Secure Driver Portal & Dispatch Services</p>
+<!-- ===== HEADER ===== -->
+<header class="main-header">
+  <img src="logo.png" alt="Left Door Shut Dispatch Logo" class="logo">
+  <div class="portal-title">Admin Portal</div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
 
-  <button id="loginBtn">Login</button>
+<!-- ===== ADMIN DASHBOARD ===== -->
+<section class="admin-dashboard">
+  <h2>Admin Dashboard</h2>
 
-  <script src="script.js"></script>
+  <!-- ===== PRICING (ADMIN ONLY) ===== -->
+  <div class="admin-box">
+    <h3>Pricing Settings (Admin Only)</h3>
+
+    <label>Dispatch Base Rate (%)</label>
+    <input type="number" id="dispatchRate" value="10">
+
+    <label>Tax Add-On Fee (Flat $)</label>
+    <input type="number" id="taxFee" value="500">
+
+    <button onclick="savePricing()">Save Pricing</button>
+    <p id="pricingStatus"></p>
+  </div>
+
+  <!-- ===== DRIVER OVERVIEW ===== -->
+  <div class="admin-box">
+    <h3>Driver Overview</h3>
+
+    <button onclick="loadDriver()">Load Driver Profile</button>
+
+    <ul id="driverInfo">
+      <li>Name: <strong id="dName">—</strong></li>
+      <li>Truck #: <strong id="dTruck">—</strong></li>
+      <li>Trailer: <strong id="dTrailer">—</strong></li>
+      <li>Factoring: <strong id="dFactoring">—</strong></li>
+      <li>Lumper Fee: $<strong id="dLumper">0</strong></li>
+    </ul>
+  </div>
+
+  <!-- ===== UPLOAD CONTROL ===== -->
+  <div class="admin-box">
+    <h3>Upload Access Control</h3>
+    <p>Status: <strong id="uploadStatus">LOCKED</strong></p>
+    <button onclick="toggleUploads()">Toggle Upload Lock</button>
+  </div>
+
+</section>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* ===== LOGOUT ===== */
+function logout() {
+  alert("Logged out");
+  window.location.href = "driver.html";
+}
+
+/* ===== SAVE PRICING (ADMIN ONLY) ===== */
+function savePricing() {
+  const pricing = {
+    dispatchRate: document.getElementById("dispatchRate").value,
+    taxFee: document.getElementById("taxFee").value
+  };
+
+  localStorage.setItem("adminPricing", JSON.stringify(pricing));
+  document.getElementById("pricingStatus").innerText = "Pricing saved.";
+}
+
+/* ===== LOAD DRIVER PROFILE ===== */
+function loadDriver() {
+  const profile = localStorage.getItem("driverProfile");
+
+  if (!profile) {
+    alert("No driver profile found.");
+    return;
+  }
+
+  const d = JSON.parse(profile);
+  document.getElementById("dName").innerText = d.name || "—";
+  document.getElementById("dTruck").innerText = d.truck || "—";
+  document.getElementById("dTrailer").innerText = d.trailer || "—";
+  document.getElementById("dFactoring").innerText = d.factoring || "—";
+  document.getElementById("dLumper").innerText = d.lumper || "0";
+}
+
+/* ===== UPLOAD LOCK ===== */
+function toggleUploads() {
+  const status = document.getElementById("uploadStatus");
+  if (status.innerText === "LOCKED") {
+    status.innerText = "UNLOCKED";
+    alert("Driver uploads unlocked.");
+  } else {
+    status.innerText = "LOCKED";
+    alert("Driver uploads locked.");
+  }
+}
+
+/* ===== LOAD PRICING SAFELY ===== */
+document.addEventListener("DOMContentLoaded", function () {
+  const pricing = localStorage.getItem("adminPricing");
+  if (pricing) {
+    const p = JSON.parse(pricing);
+    document.getElementById("dispatchRate").value = p.dispatchRate;
+    document.getElementById("taxFee").value = p.taxFee;
+  }
+});
+</script>
+
 </body>
 </html>
