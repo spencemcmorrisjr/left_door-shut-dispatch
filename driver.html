@@ -8,16 +8,15 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f2f4f7;
-  color: #222;
+  background: #e9edf2;
+  color: #1f2933;
 }
 
 .header {
-  background: #ffffff;
+  background: #1f3a5f;
   padding: 15px 40px;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .header img {
@@ -35,16 +34,17 @@ body {
   padding: 20px;
   margin-bottom: 25px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 
 h2 {
   margin-top: 0;
+  color: #1f3a5f;
 }
 
 .notice {
-  background: #fff3cd;
-  border-left: 6px solid #f0ad4e;
+  background: #e8f0ff;
+  border-left: 6px solid #1f3a5f;
   padding: 15px;
   margin-bottom: 20px;
 }
@@ -62,7 +62,7 @@ input, select {
 
 button {
   margin-top: 15px;
-  background: #2c3e50;
+  background: #1f3a5f;
   color: white;
   border: none;
   padding: 10px 16px;
@@ -71,7 +71,7 @@ button {
 }
 
 button:hover {
-  background: #1f2e3a;
+  background: #162c47;
 }
 
 .file-list {
@@ -92,22 +92,19 @@ button:hover {
   <div class="notice">
     <strong>IMPORTANT – RECEIPTS REQUIRED</strong><br>
     All expenses must include a photo or receipt. Expenses without proof will not be filed.
-    Repeated issues may result in tax service removal.
   </div>
 
   <div class="card">
     <h2>Upload BOL / Proof of Delivery</h2>
     <input type="file" multiple>
-    <div class="file-list">Files stack automatically and never overwrite.</div>
+    <div class="file-list">Multiple files allowed. Files never overwrite.</div>
   </div>
 
   <div class="card">
     <h2>Driver Expenses (Per Load)</h2>
 
-    <label>Load ID</label>
-    <input type="text">
+    <input type="text" placeholder="Load ID">
 
-    <label>Expense Type</label>
     <select>
       <option>Fuel</option>
       <option>Reefer Fuel</option>
@@ -116,43 +113,18 @@ button:hover {
       <option>Maintenance / Repairs</option>
       <option>Tires</option>
       <option>Towing</option>
-      <option>Hotels (Breakdown)</option>
+      <option>Hotels</option>
       <option>Insurance</option>
-    </select>
-
-    <label>Amount ($)</label>
-    <input type="number">
-
-    <label>Upload Receipt (Required)</label>
-    <input type="file" multiple>
-
-    <button>Add Expense</button>
-  </div>
-
-  <div class="card">
-    <h2>Business Expenses (Non-Load)</h2>
-    <select>
-      <option>GPS</option>
-      <option>Phone Bill</option>
-      <option>Mobile Internet</option>
-      <option>Dispatch Services</option>
-      <option>Laptop / Equipment</option>
-      <option>Office Supplies</option>
     </select>
 
     <input type="number" placeholder="Amount">
     <input type="file" multiple>
-    <button>Add Business Expense</button>
+    <button>Add Expense</button>
   </div>
 
   <div class="card">
     <h2>Tax Paperwork</h2>
-    <p>Uploads are automatically separated by year.</p>
-    <ul>
-      <li>Current Year</li>
-      <li>Next Year</li>
-      <li>Past Years (Read-Only)</li>
-    </ul>
+    <p>Files are separated automatically by year.</p>
     <input type="file" multiple>
   </div>
 
