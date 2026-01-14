@@ -1,242 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Driver Portal | Left Door Shut Dispatch</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Left Door Shut Dispatch - Driver Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e3a8a; /* deep blue */
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-<style>
-/* ===== HARD STOP FOR SIDE SCROLL ===== */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
+    /* Header & Logo */
+    #header {
+      text-align: center;
+      padding: 10px;
+      background-color: white;
+      border-bottom: 4px solid #ffcc00; /* yellow border from logo */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    #header img {
+      max-height: 120px;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    /* Login form */
+    #loginDiv {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    #loginDiv input {
+      margin: 5px;
+      padding: 8px;
+      width: 200px;
+      font-size: 16px;
+    }
+    #loginDiv button {
+      padding: 8px 16px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ffcc00;
+      border: none;
+    }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+    /* Main content */
+    #driverContent {
+      display: none;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border: 3px solid #ffcc00;
+      border-radius: 10px;
+    }
 
-/* ===== BASE ===== */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #243b5a;
-  color: #1a1a1a;
-  font-size: 18px;
-}
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    button.actionButton {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #1e3a8a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
 
-/* ===== HEADER ===== */
-.header {
-  background: #1b2f4a;
-  padding: 12px;
-  text-align: center;
-}
+    audio {
+      display: block;
+      margin: 10px auto;
+      width: 100%;
+      max-width: 720px;
+    }
 
-.header img {
-  max-height: 100px;
-  margin: 0 auto;
-}
-
-/* ===== MAIN WRAPPER ===== */
-.container {
-  padding: 12px;
-  width: 100%;
-}
-
-/* ===== CARD ===== */
-.card {
-  background: #ffffff;
-  border: 5px solid #f7c948;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-  width: 100%;
-}
-
-/* ===== TITLES ===== */
-h2 {
-  margin: 0 0 8px 0;
-  font-size: 1.25em;
-  color: #1b2f4a;
-}
-
-/* ===== NOTICE ===== */
-.notice {
-  background: #e9f1ff;
-  border-left: 6px solid #f7c948;
-  padding: 10px;
-  font-size: 0.95em;
-  margin-bottom: 12px;
-}
-
-/* ===== INPUTS ===== */
-label {
-  display: block;
-  margin-top: 8px;
-  font-size: 0.95em;
-}
-
-input, select {
-  width: 100%;
-  padding: 8px;
-  font-size: 1em;
-}
-
-button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 1em;
-  background: #1b2f4a;
-  color: white;
-  border: none;
-  border-radius: 6px;
-}
-
-/* ===== EXPENSE ROW ===== */
-.expense-row {
-  border-top: 1px solid #ccc;
-  margin-top: 10px;
-  padding-top: 10px;
-}
-
-/* ===== SMALL TEXT ===== */
-.small-text {
-  font-size: 0.85em;
-  color: #555;
-}
-
-/* ===== DESKTOP ===== */
-@media (min-width: 768px) {
-  body {
-    font-size: 19px;
-  }
-  .container {
-    max-width: 720px;
-    margin: auto;
-  }
-}
-</style>
+    /* Expenses table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffcc00;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <img src="logo.png" alt="Left Door Shut Dispatch">
-</div>
-
-<div class="container">
-
-  <!-- NOTICE -->
-  <div class="notice">
-    <strong>IMPORTANT – RECEIPTS REQUIRED</strong><br>
-    All expenses must include a photo/receipt before entering an amount.
-    Failure to provide receipts may result in tax service removal.
+  <!-- Header & Logo -->
+  <div id="header">
+    <img src="logo.png" alt="Left Door Shut Dispatch Logo">
   </div>
 
-  <!-- BOL -->
-  <div class="card">
-    <h2>BOL / Proof of Delivery</h2>
-    <input type="file" multiple accept="image/*,.pdf">
-    <div class="small-text">Files stack automatically and never overwrite.</div>
+  <!-- Login -->
+  <div id="loginDiv">
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
   </div>
 
-  <!-- DRIVER EXPENSES -->
-  <div class="card">
-    <h2>Driver Expenses (Per Load)</h2>
-    <div id="expenses"></div>
-    <button onclick="addExpense()">Add New Expense</button>
+  <!-- Driver Content -->
+  <div id="driverContent">
+
+    <!-- Background Music -->
+    <audio id="bgMusic" autoplay loop playsinline controls>
+      <source src="suno_trucker_loop.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Driver Info -->
+    <label for="driverName">Driver Name:</label>
+    <input type="text" id="driverName">
+
+    <label for="loadInfo">Current Load Info:</label>
+    <textarea id="loadInfo" rows="3"></textarea>
+
+    <!-- Expenses -->
+    <label>Driver Expenses</label>
+    <table id="expensesTable">
+      <thead>
+        <tr>
+          <th>Expense Type</th>
+          <th>Amount</th>
+          <th>Receipt (required)</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <button class="actionButton" onclick="addExpenseRow()">Add New Expense</button>
+
+    <!-- Send Button -->
+    <button class="actionButton" onclick="sendDriverData()">SEND</button>
+
+    <!-- Logout -->
+    <button class="actionButton" onclick="logout()">LOGOUT</button>
+
   </div>
 
-  <!-- BUSINESS EXPENSES -->
-  <div class="card">
-    <h2>Business Expenses (Non-Load)</h2>
-    <div id="business"></div>
-    <button onclick="addBusiness()">Add New Business Expense</button>
-  </div>
+  <script>
+    // ---------- Login / Logout ----------
+    function login() {
+      let email = document.getElementById("loginEmail").value;
+      let pass = document.getElementById("loginPass").value;
+      if(email === "LeftDoorShutDispatch@gmail.com" && pass === "yourpassword") {
+        alert("Logged in!");
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("driverContent").style.display = "block";
+        loadSavedData();
+      } else {
+        alert("Invalid login");
+      }
+    }
 
-  <!-- TAX -->
-  <div class="card">
-    <h2>Tax Paperwork</h2>
-    <input type="file" multiple accept="image/*,.pdf">
-    <div class="small-text">
-      Files are organized by year (current & next year separated).
-    </div>
-  </div>
+    function logout() {
+      localStorage.setItem("driverSession", "false");
+      location.reload();
+    }
 
-</div>
+    // ---------- Expenses Table ----------
+    function addExpenseRow() {
+      let tbody = document.getElementById("expensesTable").querySelector("tbody");
+      let row = document.createElement("tr");
+      row.innerHTML = `
+        <td>
+          <select>
+            <option value="Fuel">Fuel</option>
+            <option value="Toll">Toll</option>
+            <option value="Lumper">Lumper</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Tags/IFTA">Tags/IFTA</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Business">Business</option>
+          </select>
+        </td>
+        <td><input type="number" step="0.01"></td>
+        <td><input type="file" accept="image/*,application/pdf" onchange="requireReceipt(this)"></td>
+      `;
+      tbody.appendChild(row);
+    }
 
-<!-- BACKGROUND AUDIO (ROYALTY-FREE) -->
-<audio autoplay loop controls style="width:100%;max-width:720px;margin:auto;display:block;">
-  <source src="suno_trucker_loop.mp3" type="audio/mpeg">
-</audio>
+    function requireReceipt(input) {
+      if(!input.files.length) {
+        alert("Receipt required!");
+        input.previousElementSibling.value = "";
+      }
+    }
 
-<script>
-function addExpense() {
-  const div = document.createElement("div");
-  div.className = "expense-row";
-  div.innerHTML = `
-    <label>Load ID</label>
-    <input type="text">
+    // ---------- Save & Load Driver Data ----------
+    function sendDriverData() {
+      let data = {
+        name: document.getElementById("driverName").value,
+        load: document.getElementById("loadInfo").value,
+        expenses: []
+      };
 
-    <label>Expense Type</label>
-    <select>
-      <option>Fuel</option>
-      <option>Reefer Fuel</option>
-      <option>Tolls</option>
-      <option>Lumper Fee</option>
-      <option>Maintenance</option>
-      <option>Tires</option>
-      <option>Breakdown Repair</option>
-      <option>Towing</option>
-      <option>Hotel</option>
-      <option>Insurance</option>
-      <option>IFTA Stickers</option>
-      <option>Yearly Tags</option>
-    </select>
+      document.querySelectorAll("#expensesTable tbody tr").forEach(tr => {
+        let type = tr.cells[0].querySelector("select").value;
+        let amount = tr.cells[1].querySelector("input").value;
+        let receipt = tr.cells[2].querySelector("input").files[0]?.name || "";
+        data.expenses.push({type, amount, receipt});
+      });
 
-    <label>Receipt / Photo (Required)</label>
-    <input type="file" accept="image/*,.pdf"
-      onchange="this.parentElement.querySelector('.amount').disabled = false">
+      localStorage.setItem("driverData", JSON.stringify(data));
+      alert("Driver data saved locally! Ready to send to admin.");
+    }
 
-    <label>Amount</label>
-    <input type="number" class="amount" disabled>
-  `;
-  document.getElementById("expenses").appendChild(div);
-}
-
-function addBusiness() {
-  const div = document.createElement("div");
-  div.className = "expense-row";
-  div.innerHTML = `
-    <label>Expense Type</label>
-    <select>
-      <option>Phone Bill</option>
-      <option>GPS</option>
-      <option>Headset</option>
-      <option>Laptop / Tablet</option>
-      <option>Mobile Router</option>
-      <option>Dispatch Service</option>
-      <option>Office Supplies</option>
-    </select>
-
-    <label>Amount</label>
-    <input type="number">
-
-    <label>Receipt / Photo</label>
-    <input type="file" accept="image/*,.pdf">
-  `;
-  document.getElementById("business").appendChild(div);
-}
-</script>
-
+    function loadSavedData() {
+      let saved = localStorage.getItem("driverData");
+      if(saved) {
+        let data = JSON.parse(saved);
+        document.getElementById("driverName").value = data.name;
+        document.getElementById("loadInfo").value = data.load;
+        if(data.expenses.length > 0) {
+          data.expenses.forEach(exp => {
+            addExpenseRow();
+            let tbody = document.getElementById("expensesTable").querySelector("tbody");
+            let lastRow = tbody.lastChild;
+            lastRow.cells[0].querySelector("select").value = exp.type;
+            lastRow.cells[1].querySelector("input").value = exp.amount;
+          });
+        }
+      }
+    }
+  </script>
 </body>
 </html>
