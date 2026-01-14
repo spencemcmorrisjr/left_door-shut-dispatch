@@ -3,237 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <title>Driver Portal | Left Door Shut Dispatch</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== Body & Fonts ===== */
-body {
+/* ===== HARD STOP FOR SIDE SCROLL ===== */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  background: #2e3b46; /* Darker background outside cards */
-  color: #222;
+  padding: 0;
 }
 
-/* ===== Header ===== */
-.header {
-  background: #1f3a5f;
-  padding: 15px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.header img {
-  max-height: 150px; /* Logo resized */
-}
-
-/* ===== Container ===== */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px 30px;
-}
-
-/* ===== Cards ===== */
-.card {
-  background: #ffffff;
-  border: 6px solid #f7c948; /* Yellow border matches logo */
-  padding: 20px;
-  margin-bottom: 25px;
-  border-radius: 10px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-/* ===== Headings ===== */
-h2 {
-  margin-top: 0;
-  font-size: 1.5em;
-  color: #1f3a5f;
-}
-
-/* ===== Notice ===== */
-.notice {
-  background: #e8f0ff;
-  border-left: 6px solid #1f3a5f;
-  padding: 15px;
-  margin-bottom: 20px;
-  font-size: 0.95em;
-}
-
-/* ===== Form Elements ===== */
-label {
-  display: block;
-  margin-top: 10px;
-}
-
-input[type="text"],
-input[type="number"],
-select,
-input[type="file"] {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+* {
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #243b5a;
+  color: #1a1a1a;
+  font-size: 18px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: #1b2f4a;
+  padding: 12px;
+  text-align: center;
+}
+
+.header img {
+  max-height: 100px;
+  margin: 0 auto;
+}
+
+/* ===== MAIN WRAPPER ===== */
+.container {
+  padding: 12px;
+  width: 100%;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #ffffff;
+  border: 5px solid #f7c948;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+/* ===== TITLES ===== */
+h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.25em;
+  color: #1b2f4a;
+}
+
+/* ===== NOTICE ===== */
+.notice {
+  background: #e9f1ff;
+  border-left: 6px solid #f7c948;
+  padding: 10px;
+  font-size: 0.95em;
+  margin-bottom: 12px;
+}
+
+/* ===== INPUTS ===== */
+label {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.95em;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  font-size: 1em;
+}
+
 button {
-  margin-top: 15px;
-  background: #1f3a5f;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1em;
+  background: #1b2f4a;
   color: white;
   border: none;
-  padding: 10px 16px;
   border-radius: 6px;
-  cursor: pointer;
 }
 
-button:hover {
-  background: #162c47;
-}
-
-.file-list {
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-/* ===== Dynamic Expenses Rows ===== */
+/* ===== EXPENSE ROW ===== */
 .expense-row {
   border-top: 1px solid #ccc;
-  padding-top: 10px;
   margin-top: 10px;
+  padding-top: 10px;
+}
+
+/* ===== SMALL TEXT ===== */
+.small-text {
+  font-size: 0.85em;
+  color: #555;
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 768px) {
+  body {
+    font-size: 19px;
+  }
+  .container {
+    max-width: 720px;
+    margin: auto;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== Header ===== -->
+<!-- HEADER -->
 <div class="header">
-  <img src="logo.png" alt="Left Door Shut Dispatch Logo">
+  <img src="logo.png" alt="Left Door Shut Dispatch">
 </div>
 
-<!-- ===== Container ===== -->
 <div class="container">
 
-  <!-- ===== Notice ===== -->
+  <!-- NOTICE -->
   <div class="notice">
     <strong>IMPORTANT – RECEIPTS REQUIRED</strong><br>
-    All expenses must include a photo/receipt. Amount cannot be entered until a receipt is uploaded.
-    Repeated issues may result in tax service removal.
+    All expenses must include a photo/receipt before entering an amount.
+    Failure to provide receipts may result in tax service removal.
   </div>
 
-  <!-- ===== BOL / Proof of Delivery ===== -->
+  <!-- BOL -->
   <div class="card">
-    <h2>Upload BOL / Proof of Delivery</h2>
-    <input type="file" id="bolUpload" multiple>
-    <div class="file-list" id="bolList">Files stack automatically and never overwrite.</div>
+    <h2>BOL / Proof of Delivery</h2>
+    <input type="file" multiple accept="image/*,.pdf">
+    <div class="small-text">Files stack automatically and never overwrite.</div>
   </div>
 
-  <!-- ===== Driver Expenses ===== -->
+  <!-- DRIVER EXPENSES -->
   <div class="card">
     <h2>Driver Expenses (Per Load)</h2>
-    <div id="expensesContainer"></div>
-    <button id="addExpenseBtn">Add New Expense</button>
+    <div id="expenses"></div>
+    <button onclick="addExpense()">Add New Expense</button>
   </div>
 
-  <!-- ===== Business Expenses ===== -->
+  <!-- BUSINESS EXPENSES -->
   <div class="card">
     <h2>Business Expenses (Non-Load)</h2>
-    <div id="businessContainer"></div>
-    <button id="addBusinessBtn">Add New Business Expense</button>
+    <div id="business"></div>
+    <button onclick="addBusiness()">Add New Business Expense</button>
   </div>
 
-  <!-- ===== Tax Paperwork ===== -->
+  <!-- TAX -->
   <div class="card">
     <h2>Tax Paperwork</h2>
-    <p>Files are separated automatically by year (Current, Next, Past). Multiple files allowed.</p>
-    <input type="file" id="taxUpload" multiple>
+    <input type="file" multiple accept="image/*,.pdf">
+    <div class="small-text">
+      Files are organized by year (current & next year separated).
+    </div>
   </div>
 
 </div>
 
-<!-- ===== Background Music ===== -->
-<audio id="bgMusic" autoplay loop>
+<!-- BACKGROUND AUDIO (ROYALTY-FREE) -->
+<audio autoplay loop controls style="width:100%;max-width:720px;margin:auto;display:block;">
   <source src="trucker_loop.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
-<!-- ===== Scripts ===== -->
 <script>
-// ===== BOL File Stacking =====
-const bolUpload = document.getElementById('bolUpload');
-const bolList = document.getElementById('bolList');
-bolUpload.addEventListener('change', () => {
-  let files = Array.from(bolUpload.files).map(f => f.name).join(', ');
-  bolList.innerText = "Uploaded: " + files;
-});
-
-// ===== Driver Expenses =====
-const expensesContainer = document.getElementById('expensesContainer');
-document.getElementById('addExpenseBtn').addEventListener('click', () => {
-  const div = document.createElement('div');
-  div.classList.add('expense-row');
+function addExpense() {
+  const div = document.createElement("div");
+  div.className = "expense-row";
   div.innerHTML = `
     <label>Load ID</label>
     <input type="text">
-    
+
     <label>Expense Type</label>
-    <select class="expenseType">
+    <select>
       <option>Fuel</option>
       <option>Reefer Fuel</option>
       <option>Tolls</option>
       <option>Lumper Fee</option>
-      <option>Maintenance / Repairs</option>
+      <option>Maintenance</option>
       <option>Tires</option>
+      <option>Breakdown Repair</option>
       <option>Towing</option>
-      <option>Hotels (Breakdown)</option>
+      <option>Hotel</option>
       <option>Insurance</option>
+      <option>IFTA Stickers</option>
+      <option>Yearly Tags</option>
     </select>
 
-    <label>Upload Receipt (Required)</label>
-    <input type="file" class="receiptInput" multiple>
+    <label>Receipt / Photo (Required)</label>
+    <input type="file" accept="image/*,.pdf"
+      onchange="this.parentElement.querySelector('.amount').disabled = false">
 
-    <label>Amount ($)</label>
-    <input type="number" class="amountInput" disabled>
+    <label>Amount</label>
+    <input type="number" class="amount" disabled>
   `;
-  expensesContainer.appendChild(div);
+  document.getElementById("expenses").appendChild(div);
+}
 
-  // Enable amount input only if receipt uploaded
-  const receiptInput = div.querySelector('.receiptInput');
-  const amountInput = div.querySelector('.amountInput');
-  receiptInput.addEventListener('change', () => {
-    if (receiptInput.files.length > 0) {
-      amountInput.disabled = false;
-    } else {
-      amountInput.disabled = true;
-      amountInput.value = "";
-    }
-  });
-});
-
-// ===== Business Expenses =====
-const businessContainer = document.getElementById('businessContainer');
-document.getElementById('addBusinessBtn').addEventListener('click', () => {
-  const div = document.createElement('div');
-  div.classList.add('expense-row');
+function addBusiness() {
+  const div = document.createElement("div");
+  div.className = "expense-row";
   div.innerHTML = `
-    <label>Business Expense Type</label>
+    <label>Expense Type</label>
     <select>
-      <option>GPS</option>
       <option>Phone Bill</option>
-      <option>Mobile Internet</option>
-      <option>Dispatch Services</option>
-      <option>Laptop / Equipment</option>
+      <option>GPS</option>
+      <option>Headset</option>
+      <option>Laptop / Tablet</option>
+      <option>Mobile Router</option>
+      <option>Dispatch Service</option>
       <option>Office Supplies</option>
     </select>
 
-    <label>Amount ($)</label>
+    <label>Amount</label>
     <input type="number">
 
-    <label>Upload Receipt</label>
-    <input type="file" multiple>
+    <label>Receipt / Photo</label>
+    <input type="file" accept="image/*,.pdf">
   `;
-  businessContainer.appendChild(div);
-});
+  document.getElementById("business").appendChild(div);
+}
 </script>
 
 </body>
